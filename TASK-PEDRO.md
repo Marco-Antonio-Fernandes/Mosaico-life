@@ -36,6 +36,63 @@ Antes de desenvolver as telas, Pedro e Marco devem combinar:
 - nenhum token, senha ou dado sensível versionado;
 - nenhum dado clínico enviado automaticamente por WhatsApp.
 
+## Padrão obrigatório de UI/UX
+
+Os dois desenvolvedores usarão o mesmo padrão visual e os mesmos componentes:
+
+- React com TypeScript;
+- Tailwind CSS para estilos e tokens;
+- shadcn/ui como base dos componentes;
+- Radix UI para componentes interativos acessíveis;
+- Lucide para ícones;
+- React Hook Form e Zod para formulários e validação;
+- CSS variables para cores, espaçamento, bordas e estados.
+
+O estilo do Mosaico será calmo, profissional e limpo, com base neutra,
+contraste alto, azul-petróleo como cor principal e vermelho somente para ações
+destrutivas. Não usar cores diferentes para o mesmo significado em telas
+distintas.
+
+### Organização dos componentes
+
+- components/ui: componentes base compartilhados;
+- components/shared: cabeçalho, menu, estados de carregamento, vazio, erro,
+  offline e conflito;
+- modules/<modulo>/components: componentes específicos do módulo;
+- pages: composição da tela, sem regras visuais repetidas.
+
+O Pedro será o responsável pelo tema e pelos componentes compartilhados. O
+Marco usará esses componentes nos seus módulos. Se precisar de um componente
+novo ou de alteração global, deverá propor a mudança no mesmo PR ou solicitar
+alteração no componente compartilhado; não deve criar uma versão paralela.
+
+### Regras de UX
+
+- toda tela deve possuir estados de carregamento, vazio, erro e sucesso;
+- operações offline mostram claramente pendente, sincronizando, sincronizado ou
+  conflito;
+- formulários sempre exibem label, ajuda, erro e confirmação;
+- botões devem indicar quando estão processando;
+- ações destrutivas exigem confirmação;
+- foco de teclado, contraste, labels e navegação devem seguir WCAG 2.2 AA;
+- usar HTML semântico e componentes acessíveis;
+- nunca exibir anotação clínica em toast, URL, log do frontend ou mensagem de
+  erro;
+- dados sensíveis devem ser reduzidos em previews e notificações;
+- não adicionar outra biblioteca visual, como MUI, Chakra ou Bootstrap, sem
+  decisão conjunta.
+
+### Regra para as telas do Pedro
+
+As telas de pacientes, prontuários, sessões, documentos e financeiro devem usar
+os componentes compartilhados e manter:
+
+- o mesmo cabeçalho e menu;
+- a mesma largura e hierarquia de conteúdo;
+- os mesmos estados de feedback;
+- o mesmo padrão de tabela, filtro, formulário e modal;
+- o mesmo comportamento em desktop, tablet e tela estreita.
+
 ## Rotas pertencentes ao Pedro
 
 - /api/v1/patients
