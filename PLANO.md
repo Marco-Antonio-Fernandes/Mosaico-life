@@ -229,6 +229,54 @@ O sistema deverá ter uma camada de comunicação independente do restante da ap
 - avaliar o uso de uma integração oficial do WhatsApp para reduzir riscos de bloqueio ou instabilidade;
 - desenvolver as funções de confirmação, reagendamento e chat resumido dentro do próprio Mosaico.
 
+### Arquitetura do WhatsApp, backend e Docker
+
+É possível colocar o backend do Mosaico e a integração com WhatsApp na mesma implantação e iniciar tudo com Docker. O comando de operação poderá ser:
+
+```bash
+docker compose up -d --build
+```
+
+Isso não precisa significar um único processo ou um único contêiner. A recomendação é usar serviços separados, conectados por uma rede interna:
+
+```text
+Navegador/PWA
+       ↓ HTTPS
+Frontend React ───────┐
+                      ↓
+                 API do Mosaico
+                  ├── Banco central
+                  ├── Fila e worker de tarefas
+                  └── Adaptador WhatsApp ── WAK ou provedor escolhido
+```
+
+Serviços previstos no `docker-compose.yml`:
+
+- `web`: frontend React/PWA servido por HTTPS;
+- `api`: backend do Mosaico, autenticação, pacientes, agenda e regras de negócio;
+- `worker`: envio de mensagens, processamento de respostas, tentativas e notificações;
+- `whatsapp`: adaptador para o WAK ou para a API oficial do WhatsApp, quando o provedor exigir um serviço separado;
+- `db`: banco central, com volume persistente e rotina de backup;
+- `redis` ou serviço equivalente, caso seja necessário controlar filas e tarefas assíncronas;
+- proxy reverso, quando necessário, para HTTPS, domínio e recebimento seguro de webhooks.
+
+O frontend não deverá conversar diretamente com o WhatsApp. O backend será responsável por autorizar o envio, registrar o evento, controlar consentimento e encaminhar a mensagem ao adaptador. As respostas recebidas deverão entrar por webhook seguro, ser validadas e ficar vinculadas ao paciente e à sessão somente quando forem relevantes para a agenda.
+
+Para produção, a primeira opção deverá ser a API oficial do WhatsApp Business. Caso o WAK seja utilizado como gateway baseado em sessão do WhatsApp Web, ele deverá ficar isolado, com sua sessão armazenada em volume protegido e com a possibilidade de substituição. Essa modalidade poderá sofrer mudanças, limitações ou bloqueios do provedor e não deverá ser tratada como equivalente à API oficial.
+
+Regras obrigatórias para essa integração:
+
+- não enviar automaticamente anotações clínicas, diagnósticos, áudios, transcrições ou prontuários pelo WhatsApp;
+- usar mensagens limitadas à agenda, confirmação, cancelamento e reagendamento, com consentimento do paciente;
+- registrar opt-in, opt-out, mensagens enviadas, respostas, falhas e usuário responsável;
+- manter tokens, chaves, sessão do gateway e senhas somente em variáveis de ambiente ou segredo protegido;
+- não versionar arquivos `.env`, tokens, QR codes ou sessões do WhatsApp;
+- aplicar limites, idempotência, retentativas e monitoramento para evitar mensagens duplicadas;
+- manter o gateway acessível apenas pela API e pelos webhooks necessários;
+- permitir desligar ou trocar o provedor sem interromper o restante do Mosaico.
+
+Assim, Mosaico, backend e integração de mensagens poderão funcionar juntos em uma instalação Docker, sem criar uma dependência estrutural entre o prontuário e o provedor de WhatsApp.
+
 ## 14. Cadastro e acompanhamento dos pacientes
 
 Cada paciente deverá possuir uma área completa com:
@@ -530,7 +578,8 @@ Usuário
 - API e banco central;
 - PWA instalável;
 - armazenamento offline criptografado;
-- sincronização básica.
+- sincronização básica;
+- estrutura inicial de Docker Compose para desenvolvimento e homologação.
 
 ### Fase 2 — Comunicação
 
@@ -538,7 +587,9 @@ Usuário
 - confirmação de horários;
 - cancelamento e reagendamento;
 - chat limitado às mensagens relevantes;
-- notificações.
+- notificações;
+- adaptador do WhatsApp, webhooks, fila de envio e logs de integração;
+- execução conjunta do frontend, backend e serviços de apoio pelo Docker Compose.
 
 ### Fase 3 — Atendimento
 
@@ -563,4 +614,5 @@ Usuário
 - possíveis recursos de Open Finance;
 - múltiplos profissionais;
 - clínicas e permissões administrativas;
-- relatórios avançados.
+- relatórios avançados;
+- implantação em produção com HTTPS, backups, monitoramento e troca controlada do provedor de WhatsApp.

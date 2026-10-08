@@ -140,16 +140,30 @@ O Mosaico poderá avisar sobre:
 .ITEM despesas recorrentes;
 .ITEM tarefas pendentes;
 .ITEM problemas de sincronização.
-.H1 "9. Possíveis etapas de criação"
+.H1 "9. Integração com WhatsApp e instalação"
+Será possível instalar o Mosaico junto com o seu backend e com o serviço de integração do WhatsApp usando Docker. A instalação poderá iniciar todos os componentes com um único comando, enquanto cada parte ficará protegida em seu próprio serviço:
+.ITEM aplicação do Mosaico;
+.ITEM backend e regras do sistema;
+.ITEM serviço que conversa com o WhatsApp;
+.ITEM banco de dados e tarefas de envio.
+.sp .4
+O sistema poderá usar o WAK ou outro provedor compatível, mas a integração deverá ficar separada do prontuário. Assim, será possível trocar o provedor no futuro sem perder pacientes, sessões ou anotações.
+.sp .4
+Para o uso profissional, a preferência deverá ser pela API oficial do WhatsApp Business. Caso seja usado um gateway baseado no WhatsApp Web, ele poderá exigir uma sessão própria e apresentar limitações ou risco de bloqueio. A integração deverá enviar somente mensagens autorizadas sobre confirmação, cancelamento e reagendamento. Anotações clínicas, diagnósticos, áudios e transcrições não deverão ser enviados automaticamente pelo WhatsApp.
+.sp .4
+O pacote Docker deverá proteger senhas, tokens e sessões, manter o banco com armazenamento persistente e permitir backups. Também deverá registrar mensagens, respostas, falhas e pedidos para não receber mais comunicações.
+.H1 "10. Possíveis etapas de criação"
 .H2 "Primeira etapa"
 Pacientes, prontuários, demandas, sessões, agenda, anotações, documentos, PWA, uso offline e sincronização.
 .H2 "Segunda etapa"
-Mensagens automáticas, confirmação de horários, reagendamentos, notificações e chat resumido.
+Mensagens automáticas, confirmação de horários, reagendamentos, notificações, chat resumido, integração com WhatsApp e backend funcionando junto com os demais serviços por Docker.
 .H2 "Terceira etapa"
 Tela completa da sessão, áudio, transcrição, lembretes e gráficos de evolução.
 .H2 "Quarta etapa"
 Pagamentos, Pix, despesas, fluxo de caixa e projeções financeiras.
-.H1 "10. O que gostaríamos de saber"
+.H2 "Quinta etapa"
+Implantação em produção com HTTPS, backups, monitoramento e possibilidade de trocar o provedor de WhatsApp sem perder os dados do Mosaico.
+.H1 "11. O que gostaríamos de saber"
 Para ajustar o Mosaico à rotina real de uma psicóloga, gostaríamos da sua opinião sobre:
 .ITEM quais funções seriam mais importantes no primeiro lançamento;
 .ITEM como você costuma organizar prontuários e anotações;

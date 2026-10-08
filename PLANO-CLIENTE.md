@@ -100,6 +100,21 @@ O chat mostrará somente as mensagens enviadas pelo sistema e as respostas impor
 
 O Mosaico será independente de outros sistemas. Ele poderá ter funções semelhantes às encontradas em outras ferramentas, mas terá seus próprios recursos e integrações.
 
+## Integração com WhatsApp e instalação
+
+Será possível instalar o Mosaico junto com o seu backend e com o serviço de integração do WhatsApp usando Docker. Na prática, a instalação poderá iniciar todos os componentes com um único comando, enquanto cada parte ficará protegida em seu próprio serviço:
+
+- aplicação do Mosaico;
+- backend e regras do sistema;
+- serviço que conversa com o WhatsApp;
+- banco de dados e tarefas de envio.
+
+O sistema poderá usar o WAK ou outro provedor compatível, mas a integração deverá ficar separada do prontuário. Assim, será possível trocar o provedor no futuro sem perder pacientes, sessões ou anotações.
+
+Para o uso profissional, a preferência deverá ser pela API oficial do WhatsApp Business. Caso seja usado um gateway baseado no WhatsApp Web, ele poderá exigir uma sessão própria e apresentar limitações ou risco de bloqueio. A integração deverá enviar somente mensagens autorizadas sobre confirmação, cancelamento e reagendamento. Anotações clínicas, diagnósticos, áudios e transcrições não deverão ser enviados automaticamente pelo WhatsApp.
+
+O pacote Docker deverá proteger senhas, tokens e sessões, manter o banco com armazenamento persistente e permitir backups. Também deverá registrar mensagens, respostas, falhas e pedidos para não receber mais comunicações.
+
 ## Documentos e atestados
 
 O sistema terá modelos prontos para documentos profissionais, incluindo atestados.
@@ -209,7 +224,9 @@ Também deverá contar com:
 - confirmação de horários;
 - cancelamentos e reagendamentos;
 - notificações;
-- chat resumido.
+- chat resumido;
+- integração com WhatsApp;
+- backend, fila de mensagens e serviços do Mosaico funcionando juntos por Docker.
 
 ### Terceira etapa
 
@@ -226,6 +243,13 @@ Também deverá contar com:
 - despesas;
 - fluxo de caixa;
 - projeções financeiras.
+
+### Quinta etapa
+
+- implantação em produção com HTTPS;
+- backups e monitoramento;
+- melhoria da integração com o provedor de WhatsApp;
+- possibilidade de trocar o provedor sem perder os dados do Mosaico.
 
 ## Gostaríamos da sua opinião
 
