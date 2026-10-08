@@ -43,7 +43,7 @@ Antes de desenvolver as telas, Marco e Pedro devem combinar:
 
 Os dois desenvolvedores usarão o mesmo padrão visual e os mesmos componentes:
 
-- React com TypeScript;
+- Next.js com TypeScript usando App Router;
 - Tailwind CSS para estilos e tokens;
 - shadcn/ui como base dos componentes;
 - Radix UI para componentes interativos acessíveis;
