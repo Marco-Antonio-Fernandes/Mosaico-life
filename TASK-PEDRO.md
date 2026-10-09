@@ -1,4 +1,35 @@
-# Mosaico — Task do Pedro
+# Mosaico Life — Task do Pedro
+
+
+## Andamento registrado — 09/10/2026
+
+O protótipo frontend completo foi solicitado pelo usuário com dados mockados.
+Esta decisão substitui, somente nesta prévia, a restrição anterior a dados fictícios.
+Os requisitos integrais abaixo continuam valendo para a implementação real.
+
+### Entregas já realizadas
+
+- [x] ~~Pacientes com lista, busca, filtro, detalhe e cadastro simples local (mock).~~
+- [x] ~~Prontuário com resumo, linha do tempo e abas vinculadas (mock).~~
+- [x] ~~Demandas/evolução com estados e histórico local (mock).~~
+- [x] ~~Sessões com editor de anotações, demandas, evolução e finalização simulada.~~
+- [x] ~~Documentos com seleção de modelo, revisão e pré-visualização sem validade.~~
+- [x] ~~Financeiro com recebimentos, despesas e não identificados (mock).~~
+
+### Pendências desta responsabilidade
+
+- [ ] Backend de pacientes/prontuários, histórico e arquivamento autorizado.
+- [ ] Persistência de demandas/evolução, indicadores e gráficos reais.
+- [ ] Rascunhos/sessões reais, vinculação com agenda e auditoria.
+- [ ] Geração de PDF, versões/assinatura/cancelamento e financeiro real.
+- [ ] Contratos de sync por entidade e integração com os módulos do Marco.
+
+**Tasks principais: parciais.** Uma tela mock concluída não conclui seu backend.
+Não foram executados novos testes/builds nesta etapa, conforme solicitado.
+
+Veja [status consolidado de frontend, backend e servidor](<../Servidor Rotatix/STATUS-MOSAICO.md>)
+e [plano das telas](docs/PLANO-FRONTEND-MOCK.md).
+
 
 ## Responsabilidade
 
@@ -112,6 +143,10 @@ Implementar lista, busca, filtros, cadastro, edição, arquivamento, contatos,
 etiquetas, tela completa do prontuário e histórico de sessões, documentos,
 financeiro e comunicações relevantes.
 
+Na prévia visual atual, a entrada clínica foi consolidada em `Pacientes`: ao
+clicar no paciente, o profissional entra no prontuário. Demandas e evolução são
+abas desse prontuário, não módulos soltos.
+
 ## Backend
 
 Implementar entidade de paciente, contatos, status, etiquetas, busca, filtros,
@@ -142,6 +177,10 @@ online e sincronização.
 Implementar criação de demanda ou objetivo, título, descrição, prioridade,
 indicadores, estado, histórico por período, linha do tempo, gráficos,
 encerramento e reabertura.
+
+Na prévia visual atual, demandas e evolução estão dentro do prontuário do
+paciente. A sessão pode criar uma demanda/tarefa durante a transcrição, sempre
+com vínculo explícito ao paciente.
 
 Estados iniciais:
 
@@ -184,6 +223,11 @@ endpoints de histórico e gráficos.
 Implementar abertura pelo agendamento, abertura manual, paciente, horário,
 duração, presença, falta, cancelamento, anotações, demandas trabalhadas,
 evolução, lembretes, rascunho e finalização.
+
+Na prévia visual atual, o fluxo é: objetivos e estratégia do prontuário →
+anotações de apoio durante o atendimento → transcrição/revisão → criação da
+nota clínica e, se necessário, demanda/tarefa. A anotação de apoio não vira
+nota automaticamente.
 
 Em etapa posterior, poderá incluir gravação de áudio com autorização explícita,
 transcrição, revisão, conversão em anotação e prazo de retenção.

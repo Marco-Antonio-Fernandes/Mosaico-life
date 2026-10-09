@@ -1,4 +1,4 @@
-# Style Guide: Next.js, React e TypeScript
+# Mosaico Life — Style Guide: Next.js, React e TypeScript
 
 Proposta v1 para uma equipe de dois desenvolvedores que também usa IA para
 gerar código.
@@ -230,7 +230,7 @@ Pedro mantém o tema e os componentes compartilhados. Marco deve consumi-los e
 propor alterações por PR. Não crie cópia de Button, Modal, Table, formulário ou
 indicador de estado dentro de uma feature.
 
-### Visual do Mosaico
+### Visual do Mosaico Life
 
 - estilo calmo, profissional e limpo;
 - base neutra;
@@ -272,9 +272,9 @@ Meta mínima: WCAG 2.2 AA.
 - não dependa somente de hover;
 - use aria somente quando o HTML semântico não for suficiente.
 
-As telas devem funcionar em desktop, tablet e largura estreita. O layout
-desktop do Mac é prioridade inicial, mas nenhuma tela deve quebrar em tela
-menor.
+As telas devem funcionar em desktop, tablet e largura estreita. A instalação e
+o layout desktop Linux são prioridade inicial, mas nenhuma tela deve quebrar em
+tela menor.
 
 ## 9. Loading, erro e navegação
 

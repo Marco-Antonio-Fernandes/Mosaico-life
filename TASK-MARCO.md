@@ -1,4 +1,35 @@
-# Mosaico — Task do Marco
+# Mosaico Life — Task do Marco
+
+
+## Andamento registrado — 09/10/2026
+
+O protótipo frontend completo foi solicitado pelo usuário com dados mockados.
+Esta decisão substitui, somente nesta prévia, a restrição anterior a dados fictícios.
+Os requisitos integrais abaixo continuam valendo para a implementação real.
+
+### Entregas já realizadas
+
+- [x] ~~Shell, navegação, tema dark, layout responsivo e estados compartilhados iniciais.~~
+- [x] ~~Vitral de cérebro lateral em peças coloridas no menu inteiro; sem logo ou faixa no topo.~~
+- [x] ~~Início com resumo, atalhos e agenda do dia (mock).~~
+- [x] ~~Agenda visual diária/semanal/mensal, seleção de data e criação local de horário.~~
+- [x] ~~Post-its grandes no canto superior direito; exemplo aberto, criar/recolher/dispensar.~~
+- [x] ~~Comunicação administrativa, notificações, configurações e offline Linux (mock).~~
+- [x] ~~Configuração do backend compartilhado e componente de health check; home atual usa apenas mocks.~~
+
+### Pendências desta responsabilidade
+
+- [ ] Login, segurança, sessões, permissões e recuperação de acesso.
+- [ ] Agenda real: conflitos, disponibilidade, recorrência e confirmação.
+- [ ] API/provedor de comunicação, consentimentos e notificações reais.
+- [ ] Persistência de notas, instalação Linux, criptografia, pasta e sincronização real.
+
+**Tasks principais: parciais.** Uma tela mock concluída não conclui seu backend.
+Não foram executados novos testes/builds nesta etapa, conforme solicitado.
+
+Veja [status consolidado de frontend, backend e servidor](<../Servidor Rotatix/STATUS-MOSAICO.md>)
+e [plano das telas](docs/PLANO-FRONTEND-MOCK.md).
+
 
 ## Responsabilidade
 
@@ -24,6 +55,111 @@ anotações clínicas, documentos e financeiro.
 O Marco poderá consumir essas informações por API ou eventos documentados, mas
 não deverá alterar diretamente tabelas, regras ou arquivos pertencentes aos
 módulos do Pedro.
+
+## Ordem de início
+
+Antes de implementar as telas de conta, agenda, comunicação, notificações e
+offline, o Marco deve montar o layout base da aplicação. Os módulos dele e os
+módulos do Pedro usarão o mesmo shell, navegação, hierarquia de conteúdo e
+estados de feedback.
+
+# MARCO-00 — Layout base e composição da aplicação
+
+Implementar a primeira versão do layout da área autenticada do Mosaico Life em
+Next.js, deixando a aplicação pronta para receber as features dos dois
+desenvolvedores.
+
+## Frontend
+
+- criar o layout autenticado em `src/app`, com menu lateral, cabeçalho, área de
+  conteúdo e container responsivo;
+- definir a navegação inicial para pacientes, prontuários, agenda, sessões,
+  comunicação, notificações, documentos, financeiro e configurações;
+- criar páginas de entrada ou placeholders para rotas ainda não implementadas,
+  sem dados clínicos ou financeiros fictícios;
+- aplicar o tema por CSS variables e reutilizar `components/ui` e
+  `components/shared`;
+- padronizar PageHeader, largura de conteúdo, breadcrumbs quando necessários,
+  loading, vazio, erro, sem permissão, offline, sincronizando e conflito;
+- garantir navegação por teclado, foco visível, contraste WCAG 2.2 AA e
+  comportamento em desktop, tablet e tela estreita;
+- manter a composição do layout separada das regras de negócio e do acesso à
+  API.
+
+## Limites
+
+- o Marco é responsável pela composição do layout base e pela integração visual
+  dos estados dos seus módulos;
+- Pedro continua responsável pelo tema e pelos componentes compartilhados. Se
+  faltar uma primitiva ou houver necessidade de alteração global, o Marco deve
+  solicitar a mudança no componente compartilhado, sem criar cópia dentro de
+  uma feature;
+- placeholders devem usar estado vazio ou mensagem de construção, nunca
+  pacientes, sessões, documentos, valores ou notificações inventados;
+- autenticação real, permissões e bloqueio de sessão entram no MARCO-01; o
+  MARCO-00 não pode criar uma autenticação paralela.
+
+## Critérios de aceite
+
+- a aplicação abre no shell principal e as áreas previstas possuem navegação;
+- uma tela de cada grupo demonstra a mesma hierarquia e largura de conteúdo;
+- os estados de loading, vazio, erro, sem permissão e offline são reutilizáveis;
+- o layout não expõe dados sensíveis em URL, toast, log ou mensagem de erro;
+- Pedro consegue iniciar as telas de pacientes e clínica usando o mesmo shell,
+  sem duplicar menu, cabeçalho ou componentes de estado.
+
+# MARCO-00.1 — Visão geral e continuidade visual
+
+Status: em andamento.
+
+Esta entrega adianta a primeira tela de continuidade dos dois produtos sem
+antecipar a implementação completa dos módulos de negócio. A navegação deve
+mostrar o estado da operação, os próximos eventos e as notificações mais
+importantes assim que o usuário abrir o sistema.
+
+## Direção visual comum
+
+- o nome e a futura logo do produto ficam independentes do elemento gráfico;
+- o mosaico aparece na lateral, junto da separação dos módulos, como um vitral
+  antigo e irregular, com peças assimétricas e cores próprias de cada produto;
+- Life usa turquesa, azul, lilás e rosa em uma base escura e calma;
+- Food usa laranja, âmbar, ciano, verde e violeta em uma base escura de operação;
+- notificações relevantes podem aparecer como post-its no canto direito da tela,
+  sem expor dados clínicos ou informações sensíveis;
+- dados demonstrativos devem ser identificados no código e substituídos por API
+  antes da liberação de produção.
+
+## Mosaico Life — primeira visão
+
+- criar a home com resumo do dia, continuidade da sincronização e estado da API
+  compartilhada;
+- criar post-its visuais para agenda, comunicação e lembretes operacionais;
+- criar a primeira agenda visual com visões dia, semana e mês;
+- mostrar horários, confirmação, pendência, janela livre e atendimento online;
+- manter a agenda visual nesta etapa, sem criar ainda a regra final de conflito,
+  recorrência ou confirmação real.
+
+## Mosaico Food — primeira visão
+
+- criar o painel de visão geral com pedidos realizados, pessoas atendidas,
+  faturamento e ticket médio;
+- mostrar comparação com o período anterior e permitir a troca visual entre
+  dia, semana e mês;
+- permitir selecionar uma data de referência para a leitura do painel;
+- destacar avisos de WhatsApp, atendimento, pedidos e estoque;
+- manter a tela preparada para substituir os valores demonstrativos pelas
+  consultas do backend compartilhado.
+
+## Critérios de aceite do MARCO-00.1
+
+- os dois sistemas abrem em uma home visualmente distinta, mas com o mesmo
+  princípio de continuidade;
+- o mosaico lateral não é tratado como a logo definitiva;
+- Life possui agenda visual e post-its de notificações;
+- Food possui indicadores operacionais, filtros de período e avisos visíveis;
+- o status da home informa se API e banco estão respondendo;
+- nenhum valor demonstrativo é apresentado como dado real;
+- o layout permanece responsivo e acessível em tela estreita.
 
 ## Contrato comum obrigatório
 
@@ -64,10 +200,11 @@ distintas.
 - modules/<modulo>/components: componentes específicos do módulo;
 - pages: composição da tela, sem regras visuais repetidas.
 
-O Pedro será o responsável pelo tema e pelos componentes compartilhados. O
-Marco usará esses componentes nos seus módulos. Se precisar de um componente
-novo ou de alteração global, deverá propor a mudança no mesmo PR ou solicitar
-alteração no componente compartilhado; não deve criar uma versão paralela.
+Pedro é o responsável pelo tema e pelos componentes compartilhados. O Marco
+monta o layout base e usa esses componentes nos seus módulos. Se precisar de um
+componente novo ou de alteração global, deverá propor a mudança no mesmo PR ou
+solicitar alteração no componente compartilhado; não deve criar uma versão
+paralela.
 
 ### Regras de UX
 
@@ -250,19 +387,49 @@ trabalho sem conexão.
 
 ## Frontend
 
-Implementar PWA, indicador online/offline, cadastro de pasta, permissão de
-leitura e escrita, armazenamento criptografado, fila de operações, sincronização
-automática e manual, progresso, erros, conflitos, reconexão e troca de pasta.
+Implementar a instalação e o funcionamento offline para desktop Linux,
+indicador online/offline, cadastro de pasta, permissão de leitura e escrita,
+armazenamento criptografado, fila de operações, sincronização automática e
+manual, progresso, erros, conflitos, reconexão e troca de pasta.
 
-O suporte oficial inicial será Chrome e Edge no Mac. O Safari deve exibir uma
-alternativa segura caso não ofereça a API necessária.
+O suporte oficial inicial será Linux. A aplicação não pode depender de um
+servidor local rodando na máquina do usuário para abrir ou consultar a cópia
+offline. Se a API de armazenamento escolhida não estiver disponível no
+navegador/empacotamento Linux suportado, a interface deve oferecer uma
+alternativa segura e explicar a limitação sem apagar os dados do servidor.
+
+## Dados básicos sincronizáveis no primeiro ciclo
+
+A sincronização começa por uma lista de entidades permitidas e versionadas. O
+servidor continua sendo a fonte de verdade; a cópia local é criptografada e
+serve para continuidade de trabalho.
+
+| Grupo | Dados permitidos inicialmente | Fora do primeiro ciclo |
+|---|---|---|
+| Conta | preferências locais, última sincronização e permissões necessárias para a interface | senha, token e sessão do provedor |
+| Paciente | `patient_id`, nome de exibição, contato autorizado e status | prontuário, diagnóstico, evolução e anotação clínica |
+| Agenda | `appointment_id`, `patient_id`, data, duração, tipo e status | conteúdo de sessão e anotação clínica |
+| Comunicação | consentimento, opt-out, status de envio e `operation_id` | dados clínicos, áudio e transcrição |
+| Documentos | referência, status e versão autorizada | arquivo clínico completo sem política de retenção |
+
+Cada entidade deve carregar `entity_id`, `version`, `updated_at`,
+`deleted_at` quando aplicável e `operation_id` nas alterações locais. O Pedro
+define os campos e conflitos dos módulos dele; o Marco transporta a operação
+sem duplicar regra clínica.
+
+Crediário e o saldo do que cada cliente deve não pertencem ao Mosaico Life.
+Esse dado deve ser sincronizado no Mosaico Food, no módulo de clientes e
+financeiro do Pedro, com lançamentos idempotentes e sem sobrescrever saldo
+confirmado silenciosamente.
 
 ## Backend
 
 Implementar bootstrap dos dados permitidos, recebimento de operações locais,
 envio de alterações do servidor, cursor, operation_id idempotente, base_version,
 autorização por operação, retorno de aceitas, rejeitadas e conflitantes e
-auditoria da sincronização.
+auditoria da sincronização. As operações aceitas devem ser aplicadas em
+transação no banco central e disponibilizadas para os demais dispositivos pelo
+cursor; a sincronização não pode criar uma segunda fonte de verdade.
 
 Rotas previstas:
 

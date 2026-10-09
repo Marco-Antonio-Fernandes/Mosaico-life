@@ -1,4 +1,4 @@
-# Instruções para agentes de código
+# Mosaico Life — instruções para agentes de código
 
 Estas instruções devem ser aplicadas após a adoção do guia pelo time. O projeto
 assume Next.js com App Router. Confira a implementação real antes de alterar
