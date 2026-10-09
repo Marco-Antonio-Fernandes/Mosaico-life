@@ -21,10 +21,10 @@ function NotificationIcon({ kind }: { kind: LifeNotification["kind"] }) {
 export function PostItNotes() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([
     {
-      id: "demo-message-notification",
+      id: "message-notification",
       kind: "message",
       title: "Mensagem recebida",
-      message: "Paciente exemplo A pediu confirmação do próximo horário.",
+      message: "Mariana Alves pediu confirmação do próximo horário.",
       receivedAt: "Agora",
     },
   ]);

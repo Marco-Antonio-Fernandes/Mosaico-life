@@ -118,7 +118,6 @@ export function AppShell({ children }: AppShellProps) {
                 <span className="size-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(66,210,190,0.9)]" />
                 {pageTitle}
               </p>
-                <p className="hidden text-xs text-muted-foreground sm:block">Protótipo visual · dados fictícios</p>
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-3">
@@ -135,11 +134,11 @@ export function AppShell({ children }: AppShellProps) {
               <OfflineIndicator />
               <div className="hidden items-center gap-3 border-l border-border pl-3 sm:flex">
                 <span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary" aria-hidden="true">
-                  DEV
+                  ML
                 </span>
                 <div className="hidden text-left md:block">
-                  <p className="text-sm font-semibold text-foreground">Modo desenvolvimento</p>
-                  <p className="text-xs text-muted-foreground">Login será adicionado depois</p>
+                  <p className="text-sm font-semibold text-foreground">Conta profissional</p>
+                  <p className="text-xs text-muted-foreground">Acesso protegido</p>
                 </div>
               </div>
             </div>

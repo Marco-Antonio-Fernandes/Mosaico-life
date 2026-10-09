@@ -23,12 +23,12 @@ export function ModulePlaceholder({ eyebrow, title, description }: ModulePlaceho
       <Card>
         <CardContent className="p-6 sm:p-8">
           <EmptyState
-            description="A estrutura desta área já está pronta para receber a próxima entrega, sem dados de exemplo."
-            title="Área em construção"
+            description="Ainda não há informações para exibir nesta área."
+            title="Nenhum registro"
           />
           <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Construction aria-hidden="true" className="size-4" />
-            <span>Os dados aparecerão aqui quando o módulo for implementado.</span>
+            <span>Os dados desta área aparecerão aqui.</span>
           </div>
         </CardContent>
       </Card>

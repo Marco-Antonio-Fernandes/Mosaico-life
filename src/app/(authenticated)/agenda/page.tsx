@@ -12,7 +12,7 @@ type Appointment = { id: string; date: string; time: string; name: string; patie
 
 const dateKey = (date: Date) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
 const initialDate = "2026-10-09";
-const patientNames: Record<string, string> = { p1: "Paciente exemplo A", p2: "Paciente exemplo B", p3: "Paciente exemplo C" };
+const patientNames: Record<string, string> = { p1: "Mariana Alves", p2: "Rafael Costa", p3: "Luiza Martins" };
 const holidays: Record<string, string> = {
   "2026-01-01": "Confraternização Universal",
   "2026-04-03": "Paixão de Cristo",
@@ -44,14 +44,14 @@ export default function CalendarPage() {
   const [scheduleNotice, setScheduleNotice] = useState("");
   const [openStatus, setOpenStatus] = useState<string | null>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([
-    { id: "a1", date: initialDate, time: "09:00", name: "Paciente exemplo A", patientId: "p1", modality: "Presencial", status: "Confirmado" },
-    { id: "a2", date: initialDate, time: "14:00", name: "Paciente exemplo B", patientId: "p2", modality: "Online", status: "A confirmar" },
-    { id: "a3", date: "2026-10-07", time: "11:00", name: "Paciente exemplo C", patientId: "p3", modality: "Presencial", status: "Concluído" },
-    { id: "a4", date: initialDate, time: "10:00", name: "Paciente exemplo C", patientId: "p3", modality: "Presencial", status: "A confirmar" },
-    { id: "a5", date: initialDate, time: "11:00", name: "Paciente exemplo A", patientId: "p1", modality: "Online", status: "Confirmado" },
-    { id: "a6", date: initialDate, time: "13:00", name: "Paciente exemplo B", patientId: "p2", modality: "Presencial", status: "A confirmar" },
-    { id: "a7", date: initialDate, time: "15:00", name: "Paciente exemplo C", patientId: "p3", modality: "Online", status: "Confirmado" },
-    { id: "a8", date: initialDate, time: "16:00", name: "Paciente exemplo A", patientId: "p1", modality: "Presencial", status: "A confirmar" },
+    { id: "a1", date: initialDate, time: "09:00", name: "Mariana Alves", patientId: "p1", modality: "Presencial", status: "Confirmado" },
+    { id: "a2", date: initialDate, time: "14:00", name: "Rafael Costa", patientId: "p2", modality: "Online", status: "A confirmar" },
+    { id: "a3", date: "2026-10-07", time: "11:00", name: "Luiza Martins", patientId: "p3", modality: "Presencial", status: "Concluído" },
+    { id: "a4", date: initialDate, time: "10:00", name: "Luiza Martins", patientId: "p3", modality: "Presencial", status: "A confirmar" },
+    { id: "a5", date: initialDate, time: "11:00", name: "Mariana Alves", patientId: "p1", modality: "Online", status: "Confirmado" },
+    { id: "a6", date: initialDate, time: "13:00", name: "Rafael Costa", patientId: "p2", modality: "Presencial", status: "A confirmar" },
+    { id: "a7", date: initialDate, time: "15:00", name: "Luiza Martins", patientId: "p3", modality: "Online", status: "Confirmado" },
+    { id: "a8", date: initialDate, time: "16:00", name: "Mariana Alves", patientId: "p1", modality: "Presencial", status: "A confirmar" },
   ]);
   const chosen = new Date(date + "T12:00:00");
   const start = new Date(chosen);
@@ -99,7 +99,6 @@ export default function CalendarPage() {
   }
 
   return <div className="prototype">
-    <p className="proto-demo">PRÉVIA VISUAL · Agenda fictícia. Nenhuma consulta, mensagem, confirmação ou gravação é enviada.</p>
     <header className="proto-heading"><Badge>Atendimento</Badge><h1>Agenda</h1><p>Uma visão calma do dia, da semana e dos horários que precisam de atenção.</p></header>
 
     <section className="agenda-toolbar" aria-label="Controles da agenda">
@@ -109,7 +108,7 @@ export default function CalendarPage() {
         <label className="agenda-date-field"><CalendarDays aria-hidden="true" />Data de referência<input type="date" value={date} onChange={(event) => changeReferenceDate(event.target.value)} /></label>
         <button type="button" className="agenda-icon-button" aria-label="Próximo período" onClick={() => shift(1)}><ChevronRight aria-hidden="true" /></button>
       </div>
-      <div className="agenda-toolbar-actions"><button type="button" className="proto-subtle agenda-edit-days-button" onClick={() => setWeekdayEditorOpen(!weekdayEditorOpen)}><Settings2 aria-hidden="true" /> Editar dias</button><button type="button" className="agenda-new-button" onClick={() => setFormOpen(!formOpen)}><Plus aria-hidden="true" /> Novo horário mock</button></div>
+      <div className="agenda-toolbar-actions"><button type="button" className="proto-subtle agenda-edit-days-button" onClick={() => setWeekdayEditorOpen(!weekdayEditorOpen)}><Settings2 aria-hidden="true" /> Editar dias</button><button type="button" className="agenda-new-button" onClick={() => setFormOpen(!formOpen)}><Plus aria-hidden="true" /> Novo horário</button></div>
     </section>
 
     {holidays[date] && <div className="agenda-holiday-banner" role="status"><CalendarDays aria-hidden="true" /><div><strong>Feriado identificado: {holidays[date]}</strong><span>Novos horários ficam bloqueados nesta data.</span></div></div>}
@@ -118,9 +117,9 @@ export default function CalendarPage() {
 
     {weekdayEditorOpen && <Panel title="Dias de trabalho" subtitle="Escolha quais colunas aparecem na visão semanal. Ocultar um dia não apaga seus atendimentos."><div className="agenda-weekday-editor">{weekdayOptions.map(option => <label className="agenda-weekday-option" key={option.value}><input type="checkbox" checked={!hiddenWeekdays.includes(option.value)} onChange={() => toggleWeekday(option.value)} /><span><strong>{option.label}</strong><small>{hiddenWeekdays.includes(option.value) ? "Oculto na semana" : "Exibido na semana"}</small></span></label>)}</div><div className="agenda-editor-footer"><p>Profissionais podem manter somente os dias em que atendem.</p><button type="button" className="proto-subtle" onClick={() => setHiddenWeekdays([])}>Restaurar todos os dias</button></div></Panel>}
 
-    {formOpen && <Panel title="Reservar horário de exemplo" subtitle="A inclusão altera somente esta agenda de demonstração.">{holidays[date] && <div className="agenda-holiday-warning" role="alert"><strong>Agendamento bloqueado</strong><span>{holidays[date]} não permite novos horários.</span></div>}<form className="agenda-form" onSubmit={(event) => { event.preventDefault(); if (holidays[date]) { setScheduleNotice(`Não é possível agendar em ${holidays[date]}.`); return; } const data = new FormData(event.currentTarget); const patientId = String(data.get("patient")); setAppointments((current) => [...current, { id: crypto.randomUUID(), date, time: String(data.get("time")), name: patientNames[patientId], patientId, modality: String(data.get("modality")), status: "A confirmar" }]); setScheduleNotice("Horário adicionado à prévia."); setFormOpen(false); }}><label>Paciente<select disabled={Boolean(holidays[date])} name="patient"><option value="p1">Paciente exemplo A</option><option value="p2">Paciente exemplo B</option><option value="p3">Paciente exemplo C</option></select></label><label>Horário<input disabled={Boolean(holidays[date])} name="time" type="time" required defaultValue="10:00" /></label><label>Modalidade<select disabled={Boolean(holidays[date])} name="modality"><option>Presencial</option><option>Online</option><option>Bloqueio de horário</option></select></label><button disabled={Boolean(holidays[date])} type="submit">Adicionar à prévia</button></form>{scheduleNotice && <p className="agenda-form-notice" role="status">{scheduleNotice}</p>}</Panel>}
+    {formOpen && <Panel title="Reservar horário" subtitle="Informe os dados para reservar o horário.">{holidays[date] && <div className="agenda-holiday-warning" role="alert"><strong>Agendamento bloqueado</strong><span>{holidays[date]} não permite novos horários.</span></div>}<form className="agenda-form" onSubmit={(event) => { event.preventDefault(); if (holidays[date]) { setScheduleNotice(`Não é possível agendar em ${holidays[date]}.`); return; } const data = new FormData(event.currentTarget); const patientId = String(data.get("patient")); setAppointments((current) => [...current, { id: crypto.randomUUID(), date, time: String(data.get("time")), name: patientNames[patientId], patientId, modality: String(data.get("modality")), status: "A confirmar" }]); setScheduleNotice("Horário adicionado."); setFormOpen(false); }}><label>Paciente<select disabled={Boolean(holidays[date])} name="patient"><option value="p1">Mariana Alves</option><option value="p2">Rafael Costa</option><option value="p3">Luiza Martins</option></select></label><label>Horário<input disabled={Boolean(holidays[date])} name="time" type="time" required defaultValue="10:00" /></label><label>Modalidade<select disabled={Boolean(holidays[date])} name="modality"><option>Presencial</option><option>Online</option><option>Bloqueio de horário</option></select></label><button disabled={Boolean(holidays[date])} type="submit">Adicionar horário</button></form>{scheduleNotice && <p className="agenda-form-notice" role="status">{scheduleNotice}</p>}</Panel>}
 
-    <Metrics items={[["No período", String(visible.length), "Horários de exemplo"], ["Confirmados", String(visible.filter((item) => item.status === "Confirmado").length), "Status simulado"], ["A confirmar", String(visible.filter((item) => item.status === "A confirmar").length), "Sem envio de mensagem"]]} />
+    <Metrics items={[["No período", String(visible.length), "Horários"], ["Confirmados", String(visible.filter((item) => item.status === "Confirmado").length), "Status"], ["A confirmar", String(visible.filter((item) => item.status === "A confirmar").length), "Mensagens pendentes"]]} />
 
     <section className="agenda-board" aria-label={`Calendário em modo ${mode}`}>
       <div className={mode === "Mês" ? "proto-calendar-month" : mode === "Semana" ? "proto-calendar-week" : "agenda-day-view"}>
