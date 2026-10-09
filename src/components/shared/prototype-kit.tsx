@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { dispatchLifeNotification } from "@/lib/life-notifications";
 
 export function Panel({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   return <section className="proto-panel"><header><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</header>{children}</section>;
@@ -65,6 +66,7 @@ export function Chat({ health = false }: { health?: boolean }) {
     <Panel title="Conversas" subtitle="Mensagens demonstrativas"><div className="proto-conversations">{people.map((name, index) => <button type="button" key={name} aria-pressed={person === name} onClick={() => { setPerson(name); setDraft(""); }}><strong>{name}</strong><small>{index === 0 ? "Nova mensagem · agora" : "Em acompanhamento"}</small></button>)}</div></Panel>
     <Panel title={person} subtitle={health ? "Comunicação administrativa autorizada" : manual ? "Atendimento humano · automação pausada" : "Assistente automático · modo visual"}>
       {!health && <button type="button" className="proto-subtle" onClick={() => setManual(!manual)}>{manual ? "Devolver à automação" : "Assumir atendimento"}</button>}
+      {health && <button type="button" className="proto-subtle" onClick={() => dispatchLifeNotification({ kind: "message", title: "Mensagem recebida", message: `${person} enviou uma nova mensagem administrativa sobre o atendimento.` })}>Simular mensagem recebida</button>}
       <div className="proto-messages"><p>{health ? "Olá! Gostaria de confirmar o horário de amanhã." : "Olá! Quero um hambúrguer e um refrigerante para retirar."}</p><p className="outgoing">{health ? "Seu horário de exemplo está reservado para 09h. Podemos confirmar?" : "Claro! Vamos conferir o carrinho antes de confirmar o pedido."}</p>{(threads[person] ?? []).map((text, i) => <p className="outgoing" key={i}>{text}<small>Mensagem local · não enviada</small></p>)}</div>
       <form className="proto-toolbar" onSubmit={event => { event.preventDefault(); if (!draft.trim()) return; setThreads({ ...threads, [person]: [...(threads[person] ?? []), draft] }); setDraft(""); }}><label>Mensagem<input value={draft} onChange={event => setDraft(event.target.value)} placeholder="Escreva uma mensagem…" required /></label><button type="submit">Simular envio</button></form>
     </Panel>
@@ -86,7 +88,7 @@ export function NotificationList({ health = false }: { health?: boolean }) {
   const [read, setRead] = useState<string[]>([]);
   const entries = health ? ["Próxima sessão em 30 minutos", "Confirmação de horário recebida", "Pedido de reagendamento", "Recebimento aguardando identificação", "Conflito de sincronização para revisar"] : ["Novo pedido recebido", "WhatsApp aguardando atendimento", "Pedido pronto para retirada", "Ingrediente próximo do estoque mínimo", "Documento fiscal aguardando revisão"];
   return <Panel title="Central de notificações" subtitle="Exemplos visuais · nenhum evento real">
-    <div className="proto-toolbar"><Badge>{entries.length - read.length} não lidas</Badge><button type="button" onClick={() => setRead(entries)}>Marcar todas como lidas</button></div>
+    <div className="proto-toolbar"><Badge>{entries.length - read.length} não lidas</Badge><button type="button" onClick={() => setRead(entries)}>Marcar todas como lidas</button>{health && <><button type="button" className="proto-subtle" onClick={() => dispatchLifeNotification({ kind: "message", title: "Mensagem recebida", message: "Paciente exemplo A enviou uma mensagem sobre a próxima sessão." })}>Simular mensagem</button><button type="button" className="proto-subtle" onClick={() => dispatchLifeNotification({ kind: "payment", title: "Pix recebido", message: "Pagamento demonstrativo de Paciente exemplo B recebido para a sessão de hoje." })}>Simular Pix</button><button type="button" className="proto-subtle" onClick={() => dispatchLifeNotification({ kind: "reschedule", title: "Pedido de reagendamento", message: "Paciente exemplo C solicitou outro horário para a sessão." })}>Simular reagendamento</button></>}</div>
     <div className="proto-stack">{entries.map((entry, i) => <article className="proto-notification" key={entry}><span className="proto-avatar">{i + 1}</span><div><strong>{entry}</strong><p>{i === 0 ? "Agora" : i * 5 + " min atrás"} · exemplo</p></div><button type="button" className="proto-subtle" disabled={read.includes(entry)} onClick={() => setRead([...read, entry])}>{read.includes(entry) ? "Lida" : "Marcar lida"}</button></article>)}</div>
   </Panel>;
 }

@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { Bell, ChevronUp, Plus, StickyNote, X } from "lucide-react";
+import { Banknote, Bell, CalendarClock, ChevronUp, MessageSquare, Plus, StickyNote, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { type LifeNotification } from "@/lib/life-notifications";
 
-type Note = { id: string; message: string; kind: "note" | "reminder"; color: number };
+type Note = { id: string; title?: string; message: string; kind: "note" | "reminder" | "message" | "payment" | "reschedule"; color: number };
 
 const noteColors = [
   { name: "Amarelo", background: "#ffe580", foreground: "#463611" },
@@ -28,6 +29,18 @@ export function PostItNotes() {
   useEffect(() => {
     const firstColor = Math.floor(Math.random() * noteColors.length);
     setNotes(current => current.map((note, index) => ({ ...note, color: (firstColor + index) % noteColors.length })));
+  }, []);
+
+  useEffect(() => {
+    const receiveNotification = (event: Event) => {
+      const notification = (event as CustomEvent<LifeNotification>).detail;
+      if (!notification?.message) return;
+      setNotes((current) => [{ id: crypto.randomUUID(), title: notification.title, message: notification.message, kind: notification.kind, color: ((current[0]?.color ?? -1) + 1) % noteColors.length }, ...current]);
+      setExpanded(true);
+      setComposing(false);
+    };
+    window.addEventListener("mosaico-life:notification", receiveNotification);
+    return () => window.removeEventListener("mosaico-life:notification", receiveNotification);
   }, []);
 
   function toggleNotes() {
@@ -93,8 +106,8 @@ export function PostItNotes() {
                 <div aria-hidden="true" className="absolute bottom-0 right-0 size-6 bg-black/10 [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
                 <div className="mb-4 flex items-center justify-between gap-3 border-b border-black/15 pb-3">
                   <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
-                    {note.kind === "reminder" ? <Bell aria-hidden="true" className="size-5" /> : <StickyNote aria-hidden="true" className="size-5" />}
-                    {note.kind === "reminder" ? "Lembrete" : "Nota"}
+                    {note.kind === "reminder" ? <Bell aria-hidden="true" className="size-5" /> : note.kind === "message" ? <MessageSquare aria-hidden="true" className="size-5" /> : note.kind === "payment" ? <Banknote aria-hidden="true" className="size-5" /> : note.kind === "reschedule" ? <CalendarClock aria-hidden="true" className="size-5" /> : <StickyNote aria-hidden="true" className="size-5" />}
+                    {note.title ?? (note.kind === "reminder" ? "Lembrete" : note.kind === "message" ? "Mensagem recebida" : note.kind === "payment" ? "Pix recebido" : note.kind === "reschedule" ? "Reagendamento" : "Nota")}
                   </h2>
                   <button type="button" aria-label="Dispensar esta nota" onClick={() => setNotes((current) => current.filter((item) => item.id !== note.id))} className="flex size-11 shrink-0 items-center justify-center rounded-full hover:bg-black/10 focus-visible:outline focus-visible:outline-2">
                     <X aria-hidden="true" className="size-5" />

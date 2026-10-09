@@ -16,7 +16,15 @@ Notas fora dos cards, grandes e flutuantes no canto superior direito em todas as
 - [x] ~~Seis cores: amarelo, rosa, lilás, azul, verde e pêssego.~~
 - [x] ~~Novas notas alternam cor; reabrir o mural varia as cores; botão permite trocar individualmente.~~
 - [x] ~~Cor inicial varia ao abrir a aplicação sem piscar continuamente.~~
+- [x] ~~Eventos mock de mensagem, Pix e reagendamento abrem o mural automaticamente com o aviso correspondente.~~
 - [ ] Persistência/sincronização por usuário. Hoje ficam apenas na memória da sessão.
+
+## Agenda visual
+
+- [x] ~~Semana com colunas largas, rolagem horizontal controlada e dias sem sessão visíveis.~~
+- [x] ~~Cartões de atendimento com horário, modalidade, paciente e abertura contextual da sessão.~~
+- [x] ~~Status em menu próprio com cores, em vez do seletor nativo espremido.~~
+- [x] ~~Reagendamento mock gera um aviso no mural flutuante.~~
 
 ## Fluxo clínico ajustado
 
