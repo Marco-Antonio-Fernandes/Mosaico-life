@@ -217,13 +217,6 @@
 <polygon points="241,958 300,927 300,1000" fill="#c6bb89" fill-opacity="0.75"/>
 <polygon points="241,958 300,1000 233,1000" fill="#37877e" fill-opacity="0.75"/></g>
 <g stroke="#142029" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
- <!-- Psicologia: diálogo, cérebro e conexões entre pensamentos. -->
- <g>
-  <path d="M49 428 Q49 404 75 404 H164 Q187 404 187 428 V470 Q187 494 161 494 H105 L74 518 L78 494 Q49 494 49 470Z" fill="#568bab"/>
-  <path d="M120 469 Q120 447 146 447 H232 Q253 447 253 471 V510 Q253 535 228 535 L230 555 L201 535 H145 Q120 535 120 510Z" fill="#79a89c"/>
-  <path d="M75 404 L105 447 L49 470 M105 447 L161 494 M146 447 L176 492 L120 510 M176 492 L230 535" fill="none"/>
-  <path d="M82 437 H139 M151 482 H220 M151 503 H192" stroke="#e4d3ae" fill="none"/>
- </g>
  <g transform="translate(24 625) scale(.95)" stroke="#282b30" stroke-width="3.8">
   <!-- Side-profile brain assembled from irregular stained-glass pieces. -->
   <defs>
@@ -335,10 +328,6 @@
   <path d="M174 160 Q193 144 223 149 L233 166 Q242 182 222 194 Q203 207 182 199 Q163 194 157 181Z" fill="#b68a58"/>
   <path d="M174 160 L185 177 L182 199 M195 151 L204 173 L210 201 M221 151 L221 178 L232 187 M164 172 L199 161 L231 167 M158 182 L198 172 L238 178 M172 192 L205 183 L233 185" fill="none"/>
   <use href="#psychology-cortex" fill="none" stroke-width="4.5"/>
- </g>
- <g fill="#81b9ab">
-  <path d="M150 879 L95 922 L50 887 M95 922 L66 960 M95 922 L177 955 L232 916 L259 958 M150 879 L232 916" fill="none" stroke="#c3bcdd"/>
-  <circle cx="150" cy="879" r="12"/><circle cx="95" cy="922" r="14"/><circle cx="50" cy="887" r="9"/><circle cx="66" cy="960" r="9"/><circle cx="177" cy="955" r="11"/><circle cx="232" cy="916" r="14"/><circle cx="259" cy="958" r="9"/>
  </g>
 </g>
 <path d="M10 990V175Q10 70 150 12Q290 70 290 175V990 M23 990V184Q23 88 150 30Q277 88 277 184V990" fill="none" stroke="#d5b873" stroke-opacity=".65" stroke-width="4"/>

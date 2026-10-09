@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { Bell, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -122,6 +122,16 @@ export function AppShell({ children }: AppShellProps) {
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-3">
+              <Link
+                aria-current={pathname.startsWith("/notificacoes") ? "page" : undefined}
+                aria-label="Notificações: há avisos novos"
+                className="relative flex size-11 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                href="/notificacoes"
+              >
+                <Bell aria-hidden="true" className="size-5" />
+                <span aria-hidden="true" className="absolute right-2 top-2 size-2 rounded-full bg-destructive ring-2 ring-background" />
+                <span className="sr-only">Há avisos novos</span>
+              </Link>
               <OfflineIndicator />
               <div className="hidden items-center gap-3 border-l border-border pl-3 sm:flex">
                 <span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary" aria-hidden="true">
@@ -138,7 +148,7 @@ export function AppShell({ children }: AppShellProps) {
 
         <PostItNotes />
         <main className="min-h-[calc(100vh-4.5rem)] pt-14" id="conteudo-principal">
-          <div className="mx-auto w-full min-w-0 max-w-[92rem] px-3 py-5 sm:px-6 sm:py-7 xl:px-8">{children}</div>
+          <div className="mx-auto w-full min-w-0 max-w-none px-3 py-5 sm:px-6 sm:py-7 xl:px-8">{children}</div>
         </main>
       </div>
     </div>

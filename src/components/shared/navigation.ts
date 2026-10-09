@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Bell,
   Cloud,
   CalendarDays,
   FileText,
@@ -38,7 +37,6 @@ export const navigationSections: NavigationSection[] = [
     label: "Operação",
     items: [
       { label: "Comunicação", href: "/comunicacao", icon: MessageSquare },
-      { label: "Notificações", href: "/notificacoes", icon: Bell },
       { label: "Documentos", href: "/documentos", icon: FileText },
       { label: "Financeiro", href: "/financeiro", icon: WalletCards },
     ],
@@ -53,6 +51,8 @@ export const navigationSections: NavigationSection[] = [
 ];
 
 export function getNavigationTitle(pathname: string): string {
+  if (pathname === "/notificacoes") return "Notificações";
+
   const item = navigationSections
     .flatMap((section) => section.items)
     .find(({ href }) => href === pathname);
